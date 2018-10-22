@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>放假去哪玩</title>
+		<link rel="stylesheet" href="css/first.css" />
+		<link rel="stylesheet" type="text/css" href="css/search-form.css">
+		<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+	</head>
+
+	<body>
+		<div id="k">
+			<div id="logo">
+				<img src="img/logo.png.png" />
+			</div>
+			<div class="search d1">
+				<form>
+					<input type="text" placeholder="搜索从这里开始...">
+					<button>搜索
+					</button>
+				</form>
+			</div>
+			<div id="zx">
+				<div class="dropdown">
+					<div id="title">
+						<div class="title_1"><span>客服中心</span></div>
+						<div class="title_1"><span>门市地址</span></div>
+					</div>
+
+					<div class="dropdown-content">
+						<p>国内 400-830-6666</p>
+						<p>国外 + 86-21-3406-4888</p>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="menu">
+			<a href="#">首页</a>
+			<a href="#">跟团游</a>
+			<a href="#">自助游</a>
+			<a href="#">主题游</a>
+			<a href="#">特卖</a>
+			<a href="#">定制游</a>
+			<a href="#">攻略</a>
+			<a href="#">出游服务</a>
+			<a href="#">邮轮</a>
+			<a href="#">商旅</a>
+			<a href="#">机票</a>
+			<a href="#">更多</a>
+		</div>
+
+  <div id="gd">
+			<marquee direction="right" onmouseover="this.stop()" onmouseout="this.start()" scrollamount="10">重磅消息！泰国特价特价特价啦！1999元买一送一，最好玩的行程，住宿全程五星，要走的快快报名吧！</marquee>
+  	
+  </div>
+		<div id="con_one">
+			<div class="box">
+				<div class="list">
+					<ul>
+						<li class="p7">
+							<a href="#"><img src="img/1fbea141948b0a048d2264b46306a8c2.jpg" /></a>
+						</li>
+						<li class="p6">
+							<a href="#"><img src="img/217a98f9e2a1bc77c178a3dca3301224.jpg" /></a>
+						</li>
+						<li class="p5">
+							<a href="#"><img src="img/21d8af4674ef5b1f2174e632b70aeecc.jpg" /></a>
+						</li>
+						<li class="p4">
+							<a href="#"><img src="img/4356f9763c4d2b4122ee4ee64720c381.jpg" /></a>
+						</li>
+						<li class="p3">
+							<a href="#"><img src="img/500002804.jpg" /></a>
+						</li>
+						<li class="p2">
+							<a href="#"><img src="img/68c5b1327f937bff8da24a6336b0045c.jpg" /></a>
+						</li>
+						<li class="p1">
+							<a href="# "><img src="img/a34676a9cd3ce13134df98bce974af3e.jpg"></a>
+						</li>
+					</ul>
+				</div>
+				<a href="javascript:;" class="prev btn">
+					&lt;</a>
+				<a href="javascript:;" class="next btn">&gt;</a>
+			</div>
+
+			<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+			<script type="text/javascript">
+				var $a = $(".buttons a");
+				var $s = $(".buttons span");
+				var cArr = ["p7", "p6", "p5", "p4", "p3", "p2", "p1"];
+				var index = 0;
+				$(".next").click(
+					function() {
+						nextimg();
+					}
+				)
+				$(".prev").click(
+					function() {
+						previmg();
+					}
+				)
+
+				function previmg() {
+					cArr.unshift(cArr[6]);
+					cArr.pop();
+
+					$("li").each(function(i, e) {
+						$(e).removeClass().addClass(cArr[i]);
+					})
+					index--;
+					if(index < 0) {
+						index = 6;
+					}
+					show();
+				}
+
+				function nextimg() {
+					cArr.push(cArr[0]);
+					cArr.shift();
+					$("li").each(function(i, e) {
+						$(e).removeClass().addClass(cArr[i]);
+					})
+					index++;
+					if(index > 6) {
+						index = 0;
+					}
+					show();
+				}
+
+				$a.each(function() {
+					$(this).click(function() {
+						var myindex = $(this).index();
+						var b = myindex - index;
+						if(b == 0) {
+							return;
+						} else if(b > 0) {
+
+							var newarr = cArr.splice(0, b);
+							cArr = $.merge(cArr, newarr);
+							$("li").each(function(i, e) {
+								$(e).removeClass().addClass(cArr[i]);
+							})
+							index = myindex;
+							show();
+						} else if(b < 0) {
+
+							cArr.reverse();
+							var oldarr = cArr.splice(0, -b)
+							cArr = $.merge(cArr, oldarr);
+							cArr.reverse();
+							$("li").each(function(i, e) {
+								$(e).removeClass().addClass(cArr[i]);
+							})
+							index = myindex;
+							show();
+						}
+					})
+				})
+
+				//改变底下按钮的背景色
+				function show() {
+					$($s).eq(index).addClass("blue").parent().siblings().children().removeClass("blue");
+				}
+
+				//点击class为p2的元素触发上一张照片的函数
+				$(document).on("click", ".p2", function() {
+					previmg();
+					return false; //返回一个false值，让a标签不跳转
+				});
+
+				//点击class为p4的元素触发下一张照片的函数
+				$(document).on("click", ".p4", function() {
+					nextimg();
+					return false;
+				});
+
+				//			鼠标移入box时清除定时器
+				$(".box").mouseover(function() {
+					clearInterval(timer);
+				})
+
+				//			鼠标移出box时开始定时器
+				$(".box").mouseleave(function() {
+					timer = setInterval(nextimg, 4000);
+				})
+
+				//			进入页面自动开始定时器
+				timer = setInterval(nextimg, 4000);
+			</script>
+			<div style="text-align:center;clear:both">
+				<script src="/gg_bd_ad_720x90.js" type="text/javascript"></script>
+				<script src="/follow.js" type="text/javascript"></script>
+			</div>
+		</div>
+		<div id="con_two">
+			<div id="djrw" style="border-bottom-style: groove;">
+				<h1 class="djrw">当季热玩</h1>
+				<a href="" target="_blank">精选</a>
+				<a href="" target="_blank">成都</a>
+				<a href="" target="_blank">厦门</a>
+				<a href="" target="_blank">云南</a>
+				<a href="" target="_blank">广西</a>
+			</div>
+			<div id="djrw_btm">
+				<div id="djrw_left">
+					<h2 class="rmwf">热门玩法</h2>
+					<div id="rmwf">
+						<ul style="border-bottom-style: dashed;
+										border-bottom-color: darkgrey;
+										padding-bottom: 50px;width: 160px;">
+							<li>
+								<a href="" target="_blank">亲子游 暑假放价</a>
+							</li>
+							<li>
+								<a href="" target="_blank">马尔代夫</a>
+							</li>
+							<li>
+								<a href="" target="_blank">滑雪</a>
+							</li>
+							<li>
+								<a href="" target="_blank">毛里求斯</a>
+							</li>
+							<li>
+								<a href="" target="_blank">东南亚</a>
+							</li>
+							<li>
+								<a href="" target="_blank">毛里求斯</a>
+							</li>
+							<li>
+								<a href="" target="_blank">东南亚</a>
+							</li>
+
+						</ul>
+					</div>
+					<img src="img/巴士.jpg" />
+
+				</div>
+				<div id="djrw_right">
+					<div id="djrw_right_top">
+						<div id="djrw_1">
+							<div id="djrw_photo">
+								<img src="img/厦门.jpg" />
+							</div>
+							<div id="djrw_z">
+								<a rel="nofollow" href="" target="_blank" onclick="">
+									<厦门鼓浪屿-环岛路海滨-帆船出海-厦门大学-曾厝垵-南普陀双飞5日游>半跟团半自助</a>
+							</div>
+							<div id="djrw_word">
+								¥1921起
+							</div>
+						</div>
+						<div id="djrw_1">
+							<div id="djrw_photo">
+								<img src="img/五台山.jpg" />
+							</div>
+							<div id="djrw_z">
+								<a rel="nofollow" href="" target="_blank" onclick="">
+									<五台山-云冈石窟2日游>畅游两大世界遗产 纯玩0购物 含云冈电瓶车 含五台首寺显通寺</a>
+							</div>
+							<div id="djrw_word">
+								¥460起
+							</div>
+						</div>
+						<div id="djrw_1">
+							<div id="djrw_photo">
+								<img src="img/海南.jpg" />
+							</div>
+							<div id="djrw_z">
+								<a rel="nofollow" href="" target="_blank" onclick="">
+									<海南海口-博鳌-分界洲-天涯-三亚5日游>恋恋海岛轻旅行,夜游三亚欢乐颂</a>
+							</div>
+							<div id="djrw_word">
+								¥1856起
+							</div>
+						</div>
+					</div>
+					<div id="djrw_right_btm">
+						<div id="djrw_1">
+							<div id="djrw_photo">
+								<img src="img/成都.jpg" />
+							</div>
+							<div id="djrw_z_1">
+								<a rel="nofollow" href="" target="_blank" onclick="">
+									<成都-九寨沟-黄龙-卧龙大熊猫保护基地-都江堰双飞6日游>航空座椅大巴，6月舒适再升级</a>
+							</div>
+							<div id="djrw_word">
+								¥2752起
+							</div>
+						</div>
+						<div id="djrw_1">
+							<div id="djrw_photo">
+								<img src="img/东京.jpg" />
+							</div>
+							<div id="djrw_z_1">
+								<a rel="nofollow" href="" target="_blank" onclick="">
+									<东京-大阪-京都-白川乡-富士山-名古屋6日游>暑期预售，探秘白川乡，奥特莱斯疯狂折扣</a>
+							</div>
+							<div id="djrw_word">
+								¥3332起
+							</div>
+						</div>
+						<div id="djrw_1">
+							<div id="djrw_photo">
+								<img src="img/桂林.png" />
+							</div>
+							<div id="djrw_z_1">
+								<a rel="nofollow" href="" target="_blank" onclick="">
+									<桂林-阳朔-漓江-银子岩-古东瀑布双飞5日游>景点全含，探秘桂林城辉象鼻山，赏印象刘三姐</a>
+							</div>
+							<div id="djrw_word">
+								¥1999起
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+		<div id="jw">
+
+		</div>
+		<p style="text-align: center;">&copy;2017 山西大学商务学院信息学院. All rights reserved. Powered By Team--Cens</p>
+	</body>
+
+</html>
